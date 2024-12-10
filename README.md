@@ -1,50 +1,81 @@
-# React + TypeScript + Vite
+# concept mapping
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Use Cases (Reqs)
 
-Currently, two official plugins are available:
+- MUST
+  - enter a proposition
+  - change the focal concept
+  - edit / rename a Concept
+  - delete a Concept & any relations (confirm)
+  - delete a Relation
+- SHOULD
+  - entry autocomplete on both Concepts and Relation
+  - zoom
+  - search for a node or relationship
+  - export text (D2, Graphviz / dot, and/or Mermaid)
+  - browser history support (back button > previously focused concept)
+  - load graph from text import
+- COULD
+  - add description / definition field to Concept, and editing
+  - versioning
+  - auth
+  - persistence 
+    - local
+    - cloud
+  - select to show / hide nodes from view
+  - add sliders
+    - change the radius of shown connections (Kevin Bacon number)
+    - change the gravity, repulsion, spring force
+  - manual (tweak) drag & drop layout mode
+  - persistence of manually tweaked layouts
+  - export image (can just screenshot)
+  - track where you've been so you know whether you've traversed the whole thing (explain mode)
+  - maybe: fancy search on node / relationships (like LINQ / postgres JSON search?)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Dependencies:
+- Graph layout (the hard bit)
+  - implement forces for force-directed layout
+    - gravity
+    - spring force
+    - node repulsion
+  - Orientation?
+    - LR / TD / radial?
+  - Accumulate a collection to render 
+    - by traversing the items in the viewport from the Concept with focus 
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Done / Resolved
+- How do we do layout?
+  - force directed graph?
+  - human laid out?
+    - how to deal with traversal?
+    - kinda redundant ...
+- How we do data
+  - data structure that represents a concept
+    - name
+    - definition / describe 
+    - markdown?
+      - we don't wanna build obsidian / tags / etc
+  - treelike hierarchy of things
+    - bubble things with no subject relations to the top?
+    - re-render the thing when the data structure changes
+  - relation
+    - subject
+    - predicate
+    - object
+- ConceptA -> is a -> ConceptB
+- Do we render or just prepare a DSL? 
+  - DSL + 
+    - maybe easier
+    - jankier / poor fps
+  - rendering
+    - more custom
+    - more harderer, prolly
+- How do we render?
+  - what do we render to?
+    - PNG
+    - DOM
+    - canvas
+    - webGL
+    - desktop / vulkan / openGL / etc
+    - WASM

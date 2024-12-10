@@ -1,20 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { Canvas } from './components'
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+import { Stage } from '@pixi/react';
+import { AddPropositionForm, Concept } from './components';
+
+const App = () => {
 
   return (
     <>
-      <h1>Mappist</h1>
-      <div id="stage">
-      <Canvas />
+      <Stage width={800} height={600} options={{ background: 0xeeeeee }}>
+       <Concept text={"Cat Food"} x={5} y={5} width={200} height={30} />
+      </Stage>
+      <AddPropositionForm />
+      <div id="raw">
       </div>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
